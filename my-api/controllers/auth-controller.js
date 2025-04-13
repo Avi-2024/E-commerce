@@ -44,13 +44,17 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("Login data", email, password);
     const userExist = await User.findOne({ email });
-    if (!userExist) {
-      return res.status(400).json({ msg: "Invalid Credentials" });
-    }
+    console.log("USER", userExist);
+    // if (userExist) {
+    //   return res.status(400).json({ msg: "Invalid Credentials" });
+    // }
 
-    const user = await userExist.comparePassword(password);
-    if (user) {
+    const saltRound = 10;
+    const user = await bcrypt.hash(password, saltRound);    console.log("Plain-text password:", password);
+    console.log("Hashed password:", userExist.password);
+    console.log("Password match result:", user);    if (user) {
       res.status(200).json({
         msg: "Login Successfully",
         token: await userExist.generateToken(),

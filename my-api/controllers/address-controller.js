@@ -3,9 +3,26 @@ const Address = require("../models/address-model");
 // Save address
 const saveAddress = async (req, res) => {
   try {
-    const newAddress = new Address(req.body);
+    
+    const { userId, name, phone, address, city, pincode } = req.body;
+
+    // Validate required fields
+    if (!userId || !name || !phone || !address || !city || !pincode) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+    // Create a new address using the data from the frontend
+    const newAddress = new Address({
+      userId,
+      name,
+      phone,
+      address,
+      city,
+      pincode,
+    });
     await newAddress.save();
     res.status(201).json({ message: "Address saved successfully", addressId: newAddress._id });
+
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error saving address" });

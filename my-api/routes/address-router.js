@@ -4,7 +4,7 @@ const { getAddresses } = require('../controllers/address-controller');
 const router = express.Router();
 
 // POST save address
-router.post('/', saveAddress);
+router.post('/save-address', saveAddress);
 
 // GET all addresses (optional)
 router.get('/', getAddresses);
