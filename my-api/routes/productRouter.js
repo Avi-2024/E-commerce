@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllProducts, getProductById, addProducts } = require('../controllers/product-controller');
+const { getAllProducts, getProductById, addProducts, getSomeProduct } = require('../controllers/product-controller');
 
 const router = express.Router();
 
@@ -12,6 +12,7 @@ router.get('/products/:id', getProductById);
 // Populate database with product data
 router.post('/products', addProducts);
 
+router.get('/products/featured', getSomeProduct);
 
 
 module.exports = router;

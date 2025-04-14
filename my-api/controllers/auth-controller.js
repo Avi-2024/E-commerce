@@ -52,13 +52,13 @@ const login = async (req, res) => {
     // }
 
     const saltRound = 10;
-    const user = await bcrypt.hash(password, saltRound);    console.log("Plain-text password:", password);
-    console.log("Hashed password:", userExist.password);
-    console.log("Password match result:", user);    if (user) {
+    const user = await bcrypt.hash(password, saltRound);   
+    if (user) {
       res.status(200).json({
         msg: "Login Successfully",
         token: await userExist.generateToken(),
         userId: userExist._id.toString(),
+        username : userExist.username,
       });
     } else {
       res.status(401).json({ msg: "Invalid Credentials" });

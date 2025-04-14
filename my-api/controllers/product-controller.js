@@ -37,4 +37,13 @@ const addProducts = async (req, res) => {
   }
 };
 
-module.exports = { getAllProducts, getProductById, addProducts };
+const getSomeProduct = async (req, res) => {
+  try {
+    const products = await Product.find().limit(5); // Fetch only 3 products
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { getAllProducts, getProductById, addProducts,getSomeProduct };
